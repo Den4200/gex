@@ -5,18 +5,24 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
+#include "./Component.h"
+#include "./Entity.h"
+#include "./EntityManager.h"
 
 class Gex {
 private:
     bool isRunning;
     SDL_Window *window;
-    SDL_Renderer *renderer;
 
 public:
     Gex();
     ~Gex();
 
     int ticksLastFrame;
+
+    static SDL_Renderer *renderer;
+
+    void LoadLevel(int levelNumber);
 
     bool IsRunning() const;
     void Initialize(int width, int height);

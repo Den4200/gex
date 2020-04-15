@@ -1,7 +1,11 @@
 #include <iostream>
+
+#include "../lib/glm/glm.hpp"
 #include "./Constants.h"
 #include "./Gex.h"
-#include "../lib/glm/glm.hpp"
+
+EntityManager manager;
+SDL_Renderer* Gex::renderer;
 
 Gex::Gex() {
     this->isRunning = false;
@@ -14,9 +18,6 @@ Gex::~Gex() {
 bool Gex::IsRunning() const {
     return this->isRunning;
 }
-
-glm::vec2 projectilePos = glm::vec2(0.0f, 0.0f);
-glm::vec2 projectileVel = glm::vec2(20.0f, 20.0f);
 
 void Gex::Initialize(int width, int height) {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -81,25 +82,15 @@ void Gex::Update() {
 
     ticksLastFrame = SDL_GetTicks();
 
-    projectilePos =  glm::vec2(
-        projectilePos.x + projectileVel.x * deltaTime,
-        projectilePos.y + projectileVel.y * deltaTime
-    );
+
+    // TODO: update all entities
 }
 
 void Gex::Render() {
     SDL_SetRenderDrawColor(renderer, 20, 20, 20, 255);
     SDL_RenderClear(renderer);
 
-    SDL_Rect projectile {
-        (int) projectilePos.x,
-        (int) projectilePos.y,
-        10,
-        10
-    };
-
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderFillRect(renderer, &projectile);
+    // TODO: render all entities
 
     SDL_RenderPresent(renderer);
 }
