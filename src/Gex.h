@@ -16,8 +16,9 @@ public:
     Gex();
     ~Gex();
 
-    bool IsRunning() const;
+    int ticksLastFrame;
 
+    bool IsRunning() const;
     void Initialize(int width, int height);
     void ProcessInput();
     void Update();

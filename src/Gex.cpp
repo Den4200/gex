@@ -1,6 +1,7 @@
 #include <iostream>
 #include "./Constants.h"
 #include "./Gex.h"
+#include "../lib/glm/glm.hpp"
 
 Gex::Gex() {
     this->isRunning = false;
@@ -14,11 +15,8 @@ bool Gex::IsRunning() const {
     return this->isRunning;
 }
 
-// temporary
-float projectilePosX = 0.0f;
-float projectilePosY = 0.0f;
-float projectileVelX = 0.1f;
-float projectileVelY = 0.1f;
+glm::vec2 projectilePos = glm::vec2(0.0f, 0.0f);
+glm::vec2 projectileVel = glm::vec2(20.0f, 20.0f);
 
 void Gex::Initialize(int width, int height) {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -70,8 +68,23 @@ void Gex::ProcessInput() {
 }
 
 void Gex::Update() {
-    projectilePosX += projectileVelX;
-    projectilePosY += projectileVelY;
+    // Wait until FRAME_TARGET_TIME is reached if PC is too fast
+    int timeToWait = FRAME_TARGET_TIME - (SDL_GetTicks() - ticksLastFrame);
+
+    if (timeToWait > 0 && timeToWait <= FRAME_TARGET_TIME) {
+        SDL_Delay(timeToWait);
+    }
+
+    // Delta time for PCs with different speeds
+    float deltaTime = (SDL_GetTicks() - ticksLastFrame) / 1000.0f;
+    deltaTime = (deltaTime > 0.05) ? 0.05 : deltaTime;
+
+    ticksLastFrame = SDL_GetTicks();
+
+    projectilePos =  glm::vec2(
+        projectilePos.x + projectileVel.x * deltaTime,
+        projectilePos.y + projectileVel.y * deltaTime
+    );
 }
 
 void Gex::Render() {
@@ -79,8 +92,8 @@ void Gex::Render() {
     SDL_RenderClear(renderer);
 
     SDL_Rect projectile {
-        (int) projectilePosX,
-        (int) projectilePosY,
+        (int) projectilePos.x,
+        (int) projectilePos.y,
         10,
         10
     };
