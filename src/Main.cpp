@@ -3,17 +3,17 @@
 
 
 int main(int argc, char *argv[]) {
-	Gex *gex = new Gex();
+    Gex *gex = new Gex();
 
-	gex->Initialize(WIN_WIDTH, WIN_HEIGHT);
+    gex->Initialize(WIN_WIDTH, WIN_HEIGHT);
 
-	while (gex->IsRunning()) {
-		gex->ProcessInput();
-		gex->Update();
-		gex->Render();
-	}
+    while (gex->IsRunning()) {
+        gex->ProcessInput();
+        gex->Update();
+        gex->Render();
+    }
 
-	gex->Destroy();
+    gex->Destroy();
 
-	return 0;
+    return 0;
 }

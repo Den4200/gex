@@ -8,21 +8,21 @@
 
 class Gex {
 private:
-	bool isRunning;
-	SDL_Window *window;
-	SDL_Renderer *renderer;
+    bool isRunning;
+    SDL_Window *window;
+    SDL_Renderer *renderer;
 
 public:
-	Gex();
-	~Gex();
+    Gex();
+    ~Gex();
 
-	bool IsRunning() const;
+    bool IsRunning() const;
 
-	void Initialize(int width, int height);
-	void ProcessInput();
-	void Update();
-	void Render();
-	void Destroy();
+    void Initialize(int width, int height);
+    void ProcessInput();
+    void Update();
+    void Render();
+    void Destroy();
 
 };
 
