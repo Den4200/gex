@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "../lib/glm/glm.hpp"
+#include "./components/TransformComponent.h"
 #include "./Constants.h"
 #include "./Gex.h"
 
@@ -11,9 +12,7 @@ Gex::Gex() {
     this->isRunning = false;
 }
 
-Gex::~Gex() {
-
-}
+Gex::~Gex() {}
 
 bool Gex::IsRunning() const {
     return this->isRunning;
@@ -44,8 +43,24 @@ void Gex::Initialize(int width, int height) {
         return;
     }
 
+    LoadLevel(0);
+
     isRunning = true;
     return;
+}
+
+void Gex::LoadLevel(int levelNumber) {
+    Entity& entityOne(manager.AddEntity("projectileA"));
+    entityOne.AddComponent<TransformComponent>(0, 0, 20, 20, 32, 32, 1);
+
+    Entity& entityTwo(manager.AddEntity("projectileB"));
+    entityTwo.AddComponent<TransformComponent>(768, 568, -20, -20, 32, 32, 1);
+
+    Entity& entityThree(manager.AddEntity("projectileC"));
+    entityThree.AddComponent<TransformComponent>(384, 284, 0, 20, 32, 32, 1);
+
+    Entity& entityFour(manager.AddEntity("projectileD"));
+    entityFour.AddComponent<TransformComponent>(384, 284, 0, -20, 32, 32, 1);
 }
 
 void Gex::ProcessInput() {
@@ -83,14 +98,18 @@ void Gex::Update() {
     ticksLastFrame = SDL_GetTicks();
 
 
-    // TODO: update all entities
+    manager.Update(deltaTime);
 }
 
 void Gex::Render() {
     SDL_SetRenderDrawColor(renderer, 20, 20, 20, 255);
     SDL_RenderClear(renderer);
 
-    // TODO: render all entities
+    if (manager.HasNoEntities()) {
+        return;
+    }
+
+    manager.Render();
 
     SDL_RenderPresent(renderer);
 }

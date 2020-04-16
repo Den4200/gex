@@ -1,7 +1,7 @@
-#ifndef COMPONENT_H
-#define COMPONENT_H
+#ifndef TRANSFORM_COMPONENT_H
+#define TRANSFORM_COMPONENT_H
 
-#include <SDL/SDL2.h>
+#include <SDL2/SDL.h>
 
 #include "../../lib/glm/glm.hpp"
 #include "../EntityManager.h"
@@ -40,9 +40,9 @@ public:
             height
         };
 
-        SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, 255);
-        SDL_RenderFillRect(Game::renderer, &transformRectangle);
+        SDL_SetRenderDrawColor(Gex::renderer, 255, 255, 255, 255);
+        SDL_RenderFillRect(Gex::renderer, &transformRectangle);
     }
-}
+};
 
 #endif
