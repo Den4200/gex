@@ -1,11 +1,14 @@
 #include <iostream>
 
 #include "../lib/glm/glm.hpp"
+#include "./components/SpriteComponent.h"
 #include "./components/TransformComponent.h"
+#include "./AssetManager.h"
 #include "./Constants.h"
 #include "./Gex.h"
 
 EntityManager manager;
+AssetManager* Gex::assetManager = new AssetManager(&manager);
 SDL_Renderer* Gex::renderer;
 
 Gex::Gex() {
@@ -50,17 +53,12 @@ void Gex::Initialize(int width, int height) {
 }
 
 void Gex::LoadLevel(int levelNumber) {
-    Entity& entityOne(manager.AddEntity("projectileA"));
+    std::string textureFilePath = "./assets/images/tank-big-right.png";
+    assetManager->AddTexture("tank-image", textureFilePath.c_str());
+
+    Entity& entityOne(manager.AddEntity("tank"));
     entityOne.AddComponent<TransformComponent>(0, 0, 20, 20, 32, 32, 1);
-
-    Entity& entityTwo(manager.AddEntity("projectileB"));
-    entityTwo.AddComponent<TransformComponent>(768, 568, -20, -20, 32, 32, 1);
-
-    Entity& entityThree(manager.AddEntity("projectileC"));
-    entityThree.AddComponent<TransformComponent>(384, 284, 0, 20, 32, 32, 1);
-
-    Entity& entityFour(manager.AddEntity("projectileD"));
-    entityFour.AddComponent<TransformComponent>(384, 284, 0, -20, 32, 32, 1);
+    entityOne.AddComponent<SpriteComponent>("tank-image");
 }
 
 void Gex::ProcessInput() {

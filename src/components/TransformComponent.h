@@ -33,15 +33,7 @@ public:
     }
 
     void Render() override {
-        SDL_Rect transformRectangle = {
-            (int) position.x,
-            (int) position.y,
-            width,
-            height
-        };
 
-        SDL_SetRenderDrawColor(Gex::renderer, 255, 255, 255, 255);
-        SDL_RenderFillRect(Gex::renderer, &transformRectangle);
     }
 };
 

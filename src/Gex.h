@@ -9,6 +9,8 @@
 #include "./Entity.h"
 #include "./EntityManager.h"
 
+class AssetManager;
+
 class Gex {
 private:
     bool isRunning;
@@ -21,6 +23,7 @@ public:
     int ticksLastFrame;
 
     static SDL_Renderer *renderer;
+    static AssetManager *assetManager;
 
     void LoadLevel(int levelNumber);
 
