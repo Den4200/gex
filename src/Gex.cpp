@@ -59,6 +59,8 @@ void Gex::LoadLevel(int levelNumber) {
     Entity& entityOne(manager.AddEntity("tank"));
     entityOne.AddComponent<TransformComponent>(0, 0, 20, 20, 32, 32, 1);
     entityOne.AddComponent<SpriteComponent>("tank-image");
+
+    manager.ListAllEntities();
 }
 
 void Gex::ProcessInput() {

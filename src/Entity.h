@@ -28,6 +28,8 @@ public:
     void Render();
     void Destroy();
 
+    void ListAllComponents() const;
+
     bool IsActive() const;
 
     template <typename T, typename... TArgs>
